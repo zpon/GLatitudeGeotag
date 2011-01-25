@@ -1,3 +1,4 @@
+# -*- coding: UTF8 -*
 """
 Copyright 2011 Søren Juul <zpon.dk [at] gmail.com>
 
