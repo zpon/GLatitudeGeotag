@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# -*- coding: UTF8 -*-
 """
 Copyright 2011 Søren Juul <zpon.dk [at] gmail.com>
 
@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import os
 import sys
 from datetime import datetime
 import time
@@ -86,8 +87,6 @@ class Main(QtGui.QWidget):
 
 		self.http = QtNetwork.QHttp(self)
 		self.connect(self.http, QtCore.SIGNAL('done(bool)'), self, QtCore.SLOT('updateMap(bool)'))
-		#self.http.setHost("maps.google.com")
-		#print self.http.get("/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue|label:S|40.702147,-74.015794&markers=color:green|label:G|40.711614,-74.012318&markers=color:red|color:red|label:C|40.718217,-73.998284&sensor=false")
 
 	def updateMap(self, error):
 		if error:
@@ -107,14 +106,14 @@ class Main(QtGui.QWidget):
 		self.showMap()
 	
 	def browseImages(self):
-		fileNames = QtGui.QFileDialog.getOpenFileNames(self,"Select one or more images", "/home/backup/Billeder/", "*.jpeg *.jpg")
+		fileNames = QtGui.QFileDialog.getOpenFileNames(self,"Select one or more images", os.getenv("HOME"), "*.jpeg *.jpg")
 		self.listModel.beginResetModel()
 		self.listModel.setStringList(fileNames[0])
 
 		self.lst_images.setModel(self.listModel)
 	
 	def browseKml(self):
-		fileName = QtGui.QFileDialog.getOpenFileName(self,"Select one or more images", "/home/backup/Billeder/", "*kml")
+		fileName = QtGui.QFileDialog.getOpenFileName(self,"Select one or more images", os.getenv("HOME"), "*kml")
 
 		if not fileName:
 			return
